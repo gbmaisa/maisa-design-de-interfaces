@@ -6,13 +6,13 @@ body {
 }
 
 header {
-    background-color: #004080;
-    color: white;
+    background-color: #732424;
+    color: vermelho;
     padding: 20px;
 }
 
 header nav a {
-    color: white;
+    color: vermelho;
     margin: 0 10px;
     text-decoration: none;
 }
@@ -22,7 +22,7 @@ main {
 }
 
 footer {
-    background-color: #f1f1f1;
+    background-color: #A24D68;
     padding: 15px;
     margin-top: 30px;
 }
