@@ -22,23 +22,61 @@
     </header>
 
     <!-- Conteúdo principal -->
-    <main>
-        <h1>Bem-vindo à S.C.C.P. News</h1>
-        <p>Conheça os jogadores mais ídolos do Corinthians</p>
+  <main>
+  <h1>Bem-vindo à Locadora de Veículos</h1>
+  <p>Encontre o carro ideal para sua viagem, trabalho ou lazer.</p>
 
-        <div class="jogadores">
-            <img src="https://revistaflamenguista.com.br/wp-content/uploads/2025/03/Garro-Corinthians.jpg"
-                alt="Rodrigo Garro">
+  <div id="conteudo" class="conteudo-scroll">
+    <p>Carregando conteúdo...</p>
+  </div>
+</main>
 
-            <img src="https://lncimg.lance.com.br/cdn-cgi/image/width=1920,height=undefined,quality=75/uploads/2023/01/18/63c8b02655bb7.jpeg"
-                alt="Yuri Alberto">
+<script>
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycby80mvhd9Yk_Zx0Q7zYnjkFH0tp7HVSUCfpYjVfoXQX0d36Yq_aueGNZiPa6lyIDvA6Pw/exec"
+async function carregarConteudo() {
+  const container = document.getElementById('conteudo');
+  container.innerHTML = "<p>Carregando conteúdo...</p>";
 
-            <img src="https://staticcdn.fcupdate.nl/images/cf/image/upload/QW5PCa7NTggpZSOJoH7DaAHYcw8vcnem/q=85,g=auto,fit=contain,compression=fast,w=1560,h=920"
-                alt="Menphis Depay">
-                
-        </div>
-    </main>
+  try {
+    const res = await fetch(SCRIPT_URL);
+    const dados = await res.json();
+    container.innerHTML = '';
 
+    dados.forEach(item => {
+      const bloco = document.createElement('div');
+      bloco.className = 'bloco-item';
+
+      const titulo = document.createElement('h2');
+      titulo.textContent = item.Título || '';
+      bloco.appendChild(titulo);
+
+      const descricao = document.createElement('p');
+      descricao.textContent = item.Descrição || '';
+      bloco.appendChild(descricao);
+
+      if (item.Url && item.Url.startsWith('http')) {
+        if (item.Url.match(/\.(jpg|jpeg|png|gif|webp)$/i) || item.Url.includes('unsplash')) {
+          const img = document.createElement('img');
+          img.src = item.Url;
+          img.alt = item.Título || 'Imagem';
+          bloco.appendChild(img);
+        } else {
+          const link = document.createElement('a');
+          link.href = item.Url;
+          link.textContent = 'Ver mais';
+          bloco.appendChild(link);
+        }
+      }
+
+      container.appendChild(bloco);
+    });
+  } catch (err) {
+    container.innerHTML = "<p>Erro ao carregar dados: " + err.message + "</p>";
+  }
+}
+
+carregarConteudo();
+</script>
     <!-- Rodapé -->
     <footer>
         <p>&copy; 2025 Gaviões da Fiel - Todos os direitos reservados</p>
